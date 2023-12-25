@@ -17,9 +17,9 @@ def recv():
     listensocket = socket.socket()
     port=4050
     maxconnection=99
-    ip=socket.gethostname()
+    #ip=socket.gethostname()
     
-    listensocket.bind(('',port))
+    listensocket.bind(('127.0.0.1',port))
     listensocket.listen(maxconnection)
     (clientsocket,address)=listensocket.accept()
     
@@ -29,6 +29,8 @@ def recv():
             time.sleep(5)
             listbx.insert(0,"Client : "+sendermessage)
             
+    listensocket.close()
+            
 
 #send function         
 xr = 0
@@ -36,7 +38,7 @@ def sendmsg():
     global xr
     if xr==0:
         s=socket.socket()
-        hostname="DESKTOP-332HMQD" #this need to change in second computer
+        hostname="127.0.0.1" #this need to change in second computer
         port=4050 #use same port in receving part in second computer
         s.connect((hostname,port))
         msg=messageboxentry.get()
