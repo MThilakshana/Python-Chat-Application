@@ -15,31 +15,35 @@ def func():
 #recieved function    
 def recv():
     listensocket = socket.socket()
-    port=4050
-    maxconnection=99
-    #ip=socket.gethostname()
-    
-    listensocket.bind(('127.0.0.1',port))
+    port = 4050
+    maxconnection = 99
+    ip = socket.gethostname()
+
+    listensocket.bind(('', port))
     listensocket.listen(maxconnection)
-    (clientsocket,address)=listensocket.accept()
-    
-    while True:
-        sendermessage=clientsocket.recv(1024).decode()
-        if not sendermessage=="":
-            time.sleep(5)
-            listbx.insert(0,"Client : "+sendermessage)
-            
-    listensocket.close()
+    (clientsocket, address) = listensocket.accept()
+
+    try:
+        while True:
+            sendermessage = clientsocket.recv(1024).decode()
+            if not sendermessage == "":
+                time.sleep(5)
+                listbx.insert(0, "Client : " + sendermessage)
+    except ConnectionResetError:
+        print("Connection closed by the client.")
+    finally:
+        listensocket.close()
             
 
 #send function         
 xr = 0
 def sendmsg():
+    global s
     global xr
     if xr==0:
         s=socket.socket()
-        hostname="127.0.0.1" #this need to change in second computer
-        port=4050 #use same port in receving part in second computer
+        hostname="192.168.8.101" #this need to change in second computer
+        port=5000 #use same port in receving part in second computer
         s.connect((hostname,port))
         msg=messageboxentry.get()
         listbx.insert(0,"You : "+msg) 

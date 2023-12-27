@@ -15,7 +15,7 @@ def func():
 #recieved function    
 def recv():
     listensocket = socket.socket()
-    port=4050
+    port=3050
     maxconnection=99
     ip=socket.gethostname()
     
