@@ -23,7 +23,7 @@ hostSocket.setsockopt(SOL_SOCKET,SO_REUSEADDR,1)
 
 hostIp = "127.0.0.1"
 portNumber = 7500
-hostSocket.bind(hostIp,portNumber)
+hostSocket.bind((hostIp,portNumber))
 hostSocket.listen()
 print("Waiting for connection....")
 
